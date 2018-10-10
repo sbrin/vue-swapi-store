@@ -1,38 +1,43 @@
 <template lang="pug">
     .listing
-        Item.listing__item(
+        ListItem.listing__item(
             v-for="(item, index) in items",
             :key="index",
             :item="item",
+            :selected="index === selectedItem",
+            :idx="index",
+            @selectItem="selectItem",
         )
 </template>
 
 <script>
-import Item from '@/components/Item.vue';
+import ListItem from '@/components/ListItem.vue';
 import { mapActions } from 'vuex';
 
 export default {
     name: 'ItemsList',
     components: {
-        Item,
+        ListItem,
     },
     data() {
         return {
-            items: [],
-            intervalGetVehicles: setInterval(() => { this.getVehicles(); }, 3000)
+            intervalGetVehicles: setInterval(() => { this.API_GET_VEHICLES() }, 3000),
+            selectedItem: null,
         };
+    },
+    computed: {
+        items() {
+            return this.$store.state.items.vehicles;
+        }
     },
     methods: {
         ...mapActions(['API_GET_VEHICLES']),
-        getVehicles() {
-            this.API_GET_VEHICLES()
-                .then(response => {
-                    this.items = response;
-                });
+        selectItem(idx) {
+            this.selectedItem = idx;
         }
     },
     created() {
-        this.getVehicles();
+        this.API_GET_VEHICLES();
     },
     beforeDestroy() {
         clearInterval(this.intervalGetVehicles);

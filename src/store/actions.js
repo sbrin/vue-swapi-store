@@ -2,14 +2,17 @@ import axios from 'axios';
 
 const API_URL = 'https://swapi.co/api/';
 
-const API_GET_VEHICLES = () => axios.get(`${API_URL}vehicles`)
+export const API_GET_VEHICLES = (context) => axios.get(`${API_URL}vehicles`)
     .then((response) => response.data)
     .then((response) => {
         if ('results' in response) {
-            console.log(response);
-            return response.results;
+            context.commit('ITEMS_UPDATE_VEHICLES', response.results);
+            return response;
         }
         return Promise.reject(response);
     })
 
-export default { API_GET_VEHICLES };
+export const API_POST_ORDER = (context, payload) => axios.post(`${API_URL}vehicles`, payload)
+    .then(() => {
+        // console.log(response);
+    });
