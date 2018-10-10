@@ -21,7 +21,7 @@ export default {
     },
     data() {
         return {
-            intervalGetVehicles: setInterval(() => { this.API_GET_VEHICLES() }, 3000),
+            intervalGetVehicles: setInterval(() => { this.API_GET_VEHICLES() }, 60000),
             selectedItem: null,
         };
     },

@@ -4,8 +4,9 @@
             h1.header__title
                 router-link(to="/") Star Wars Vehicles Shop
             .header__buttons
-                router-link(to="/basket") Корзина:                    
-                div Всего {{ getBasketCount }} шт. за {{ getBasketTotal }} КР
+                router-link(to="/basket") Корзина:   
+                div(v-if="getBasketCount === 0") В корзине пусто
+                div(v-else="") Всего {{ getBasketCount }} шт. за {{ getBasketTotal }} КР
         section
             router-view
 </template>

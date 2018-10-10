@@ -7,8 +7,8 @@
                 :item="item",
             )
         hr
-        .basket__total.summary(v-if="items.length === 0") В корзине пусто
-        .basket__total.summary(v-if="items.length > 0")
+        .basket__total.summary(v-if="getBasketCount === 0") В корзине пусто
+        .basket__total.summary(v-else="")
             .summary__total Всего 
             .summary__price {{ getBasketTotal }} КР
             .summary__buttons
@@ -40,7 +40,6 @@ export default {
     computed: {
         ...mapGetters([
             'getBasketCount',
-            'getBasketTotal',
         ]),
         items() {
             return this.$store.state.basket;
