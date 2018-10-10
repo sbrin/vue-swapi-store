@@ -39,7 +39,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getBasketCount',
+            'getBasketTotal',
         ]),
         items() {
             return this.$store.state.basket;
